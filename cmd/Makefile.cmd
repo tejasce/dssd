@@ -12,8 +12,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# 
+#
 OBJS := $(SRCS:%.c=%.o)
+INSTALL_DST := $(DESTDIR)/usr/bin
 
 all: $(CMD)
 
@@ -27,4 +28,8 @@ clean:
 	rm -f $(OBJS)
 
 clobber: clean
-	rm -f $(CMD)
+	rm -rf $(CMD) $(INSTALL_DST)
+
+install: all
+	mkdir -p $(INSTALL_DST)
+	install -m 0755 -D $(CMD) $(INSTALL_DST)

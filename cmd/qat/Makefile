@@ -14,7 +14,7 @@
 # limitations under the License.
 # 
 
-all clean clobber:
+all clean clobber install:
 	# shell script build, nothing to do
 
 #
