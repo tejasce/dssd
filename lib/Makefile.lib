@@ -12,10 +12,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# 
+#
 SOLIB := lib$(LIB).so
 OBJS := $(SRCS:%.c=%.o)
 CFLAGS += -fPIC
+INSTALL_DST := $(DESTDIR)/lib
 
 all: $(SOLIB)
 
@@ -29,4 +30,9 @@ clean:
 	rm -f $(OBJS) $(CLEANFILES)
 
 clobber: clean
-	rm -f $(SOLIB) $(CLOBBERFILES)
+	rm -rf $(SOLIB) $(CLOBBERFILES) $(INSTALL_DST)
+
+
+install: all
+	mkdir -p $(INSTALL_DST)
+	install -m 0755 -D $(SOLIB) $(INSTALL_DST)

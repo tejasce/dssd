@@ -12,14 +12,21 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# 
+#
+TOPDIR := $(shell git rev-parse --show-toplevel)
+DESTDIR ?= $(TOPDIR)/proto
+
 all: TARGET += all
 clean: TARGET += clean
+install: TARGET += install
 clobber: TARGET += clobber
 
-all clean clobber: $(SUBDIRS)
+all clean clobber install: $(SUBDIRS)
 
 $(SUBDIRS): FRC
-	@cd $@ && pwd && $(MAKE) $(TARGET)
+	@cd $@ && pwd && $(MAKE) $(TARGET) DESTDIR=$(DESTDIR)
+
+clobber:
+	rm -rf $(DESTDIR)
 
 FRC:
