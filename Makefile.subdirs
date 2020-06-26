@@ -13,7 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-DESTDIR ?= ../../proto
+TOPDIR := ../..
+PREFIX ?= proto
 
 all: TARGET += all
 clean: TARGET += clean
@@ -23,7 +24,7 @@ clobber: TARGET += clobber
 all clean clobber install: $(SUBDIRS)
 
 $(SUBDIRS): FRC
-	@cd $@ && pwd && $(MAKE) $(TARGET) DESTDIR=$(DESTDIR)
+	@cd $@ && pwd && $(MAKE) $(TARGET) DESTDIR=$(TOPDIR)/$(PREFIX)
 
 clobber:
 	rm -rf $(DESTDIR)
